@@ -3,13 +3,23 @@ package com.fges;
 public class ProductItem {
     private String itemName;
     private Integer quantity;
+    private String category;
 
     public ProductItem(){} // requis par biblio Jackson
 
     // def d'un constructeur poyr que ce soit + facile à créer
-    public ProductItem (String name, Integer qty){
+    public ProductItem (String name, Integer qty, String category){
         this.itemName = name;
         this.quantity = qty;
+        this.category = category;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getItemName() {
@@ -30,7 +40,7 @@ public class ProductItem {
 
     @Override
     public String toString() {
-        return "itemName" + ": " + itemName + quantity;
+        return "itemName" + ": " + this.itemName + this.quantity + this.category;
     }
 
     // on doit surcharger la méthode equals precq pour l'instant quand on utilise "contains" dans removeItem p/ex => pour tester si des elements sont deja existants on compare le pointeur mais 2 elements "Pomme" n'ont pas le même pointeur donc on aura jamais contains == 1

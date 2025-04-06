@@ -36,7 +36,7 @@ public class CommandeLine {
 
         this.sourceFile = cmd.getOptionValue("s");
         this.fileType = cmd.getOptionValue("t", "json");
-        this.productCategorie = cmd.getOptionValue("c", "default");
+//        this.productCategorie = cmd.getOptionValue("c", "default");
 
         List<String> positionalArgs = cmd.getArgList();
         if (positionalArgs.isEmpty()) {
@@ -53,7 +53,14 @@ public class CommandeLine {
             }
             String itemName = positionalArgs.get(1);
             int quantity = Integer.parseInt(positionalArgs.get(2));
-            ProductItem newItem = new ProductItem(itemName, quantity);
+            String productCategory;
+            if (positionalArgs.size() > 3){
+                productCategory = positionalArgs.get(3);
+            }
+            else {
+                productCategory = "default";
+            }
+            ProductItem newItem = new ProductItem(itemName, quantity, productCategory);
             AddCommand addCommande = new AddCommand(groceryList, newItem);
             return addCommande.execute();
         }
@@ -64,7 +71,7 @@ public class CommandeLine {
                 return 1;
             }
             String itemName = positionalArgs.get(1);
-            ProductItem itemToRemove = new ProductItem(itemName, 0);
+            ProductItem itemToRemove = new ProductItem(itemName, 0, "");
             RemoveCommand removeCommand = new RemoveCommand(groceryList, itemToRemove);
             return removeCommand.execute();
         }
