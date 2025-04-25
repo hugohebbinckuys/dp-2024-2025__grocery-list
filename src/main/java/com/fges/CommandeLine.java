@@ -76,6 +76,16 @@ public class CommandeLine {
             return removeCommand.execute();
         }
 
+        if (Objects.equals(command, "list")){
+            ListCommand listeCommande = new ListCommand(groceryList);
+            return listeCommande.execute();
+        }
+
+        if (Objects.equals(command, "info")){
+            InfoCommande infoCommande = new InfoCommande();
+            return infoCommande.execute();
+        }
+
     return 0;
     }
 
