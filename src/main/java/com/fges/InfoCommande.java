@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class InfoCommande implements Command{
     public int execute() {
+        System.out.println("\n==> Appel de InfoCommande.execute()\n");
         Date ajd = new Date();
         String os = System.getProperty("os.name");
         String javaV = System.getProperty("java.version");

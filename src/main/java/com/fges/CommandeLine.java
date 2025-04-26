@@ -10,6 +10,7 @@ public class CommandeLine {
     private String sourceFile;
     private String fileType;
     private String productCategorie;
+    private List<String> positionalArgs;
 
     public String getSourceFile() {
         return sourceFile;
@@ -18,27 +19,25 @@ public class CommandeLine {
         return fileType;
     }
 
-    int createCommand (String[] args, ArrayList<ProductItem> groceryList){
+    public int parseCommand(String[] args) {
         Options cliOptions = new Options();
-        CommandLineParser parser = new DefaultParser(); // parser = pour analyser la ligne de commande
+        CommandLineParser parser = new DefaultParser();
 
-        cliOptions.addRequiredOption("s", "source", true, "File containing the grocery list");
+        // Ici : -s est obligatoire normalement mais on va gérer en fonction de si c "info" ou pas
+        cliOptions.addOption("s", "source", true, "File containing the grocery list");
         cliOptions.addOption("t", "type", true, "File type");
         cliOptions.addOption("c", "categorie", true, "Categorie of the product");
 
         CommandLine cmd;
         try {
-            cmd = parser.parse(cliOptions, args); // ici c pour comparer entre les arg passés et les arguments obligé
+            cmd = parser.parse(cliOptions, args);
         } catch (ParseException ex) {
             System.err.println("Fail to parse arguments: " + ex.getMessage());
             return 1;
         }
 
-        this.sourceFile = cmd.getOptionValue("s");
-        this.fileType = cmd.getOptionValue("t", "json");
-//        this.productCategorie = cmd.getOptionValue("c", "default");
+        positionalArgs = cmd.getArgList();
 
-        List<String> positionalArgs = cmd.getArgList();
         if (positionalArgs.isEmpty()) {
             System.err.println("Missing Command");
             return 1;
@@ -46,28 +45,41 @@ public class CommandeLine {
 
         String command = positionalArgs.get(0);
 
+        // Gestion spéciale : pour info, le -s est pas obligatorie
+        if (!Objects.equals(command, "info") && !cmd.hasOption("s")) {
+            System.err.println("Missing required option: -s");
+            return 1;
+        }
+
+        // On récupère les valeurs SI elles existent
+        if (cmd.hasOption("s")) {
+            this.sourceFile = cmd.getOptionValue("s");
+        }
+        this.fileType = cmd.getOptionValue("t", "json");
+
+        return 0;
+    }
+
+    public int executeCommand(ArrayList<ProductItem> groceryList) {
+        String command = positionalArgs.get(0);
+
         if (Objects.equals(command, "add")) {
             if (positionalArgs.size() < 3) {
-                System.err.println("Missing arguments");
+                System.err.println("Missing arguments for add");
                 return 1;
             }
             String itemName = positionalArgs.get(1);
             int quantity = Integer.parseInt(positionalArgs.get(2));
-            String productCategory;
-            if (positionalArgs.size() > 3){
-                productCategory = positionalArgs.get(3);
-            }
-            else {
-                productCategory = "default";
-            }
+            String productCategory = positionalArgs.size() > 3 ? positionalArgs.get(3) : "default";
+
             ProductItem newItem = new ProductItem(itemName, quantity, productCategory);
-            AddCommand addCommande = new AddCommand(groceryList, newItem);
-            return addCommande.execute();
+            AddCommand addCommand = new AddCommand(groceryList, newItem);
+            return addCommand.execute();
         }
 
-        if (Objects.equals(command, "remove")){
+        if (Objects.equals(command, "remove")) {
             if (positionalArgs.size() < 2) {
-                System.err.println("Missing arguments");
+                System.err.println("Missing arguments for remove");
                 return 1;
             }
             String itemName = positionalArgs.get(1);
@@ -76,18 +88,17 @@ public class CommandeLine {
             return removeCommand.execute();
         }
 
-        if (Objects.equals(command, "list")){
-            ListCommand listeCommande = new ListCommand(groceryList);
-            return listeCommande.execute();
+        if (Objects.equals(command, "list")) {
+            ListCommand listCommand = new ListCommand(groceryList);
+            return listCommand.execute();
         }
 
-        if (Objects.equals(command, "info")){
-            InfoCommande infoCommande = new InfoCommande();
-            return infoCommande.execute();
+        if (Objects.equals(command, "info")) {
+            InfoCommande infoCommand = new InfoCommande();
+            return infoCommand.execute();
         }
 
-    return 0;
+        System.err.println("Unknown command: " + command);
+        return 1;
     }
-
-
 }
