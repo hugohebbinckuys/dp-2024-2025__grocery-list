@@ -9,7 +9,6 @@ import java.util.Objects;
 public class CommandeLine {
     private String sourceFile;
     private String fileType;
-    private String productCategorie;
     private List<String> positionalArgs;
 
     public String getSourceFile() {
@@ -62,40 +61,36 @@ public class CommandeLine {
 
     public int executeCommand(ArrayList<ProductItem> groceryList) {
         String command = positionalArgs.get(0);
+        CommandLine cmd;
 
-        if (Objects.equals(command, "add")) {
-            if (positionalArgs.size() < 3) {
-                System.err.println("Missing arguments for add");
-                return 1;
-            }
-            String itemName = positionalArgs.get(1);
-            int quantity = Integer.parseInt(positionalArgs.get(2));
-            String productCategory = positionalArgs.size() > 3 ? positionalArgs.get(3) : "default";
+        switch (command){
+            case "add":
+                if (positionalArgs.size() < 3) {
+                    System.err.println("Missing arguments for add");
+                    return 1;
+                }
+                String itemName = positionalArgs.get(1);
+                int quantity = Integer.parseInt(positionalArgs.get(2));
+                String productCategory = positionalArgs.size() > 3 ? positionalArgs.get(3) : "default";
 
-            ProductItem newItem = new ProductItem(itemName, quantity, productCategory);
-            AddCommand addCommand = new AddCommand(groceryList, newItem);
-            return addCommand.execute();
-        }
-
-        if (Objects.equals(command, "remove")) {
-            if (positionalArgs.size() < 2) {
-                System.err.println("Missing arguments for remove");
-                return 1;
-            }
-            String itemName = positionalArgs.get(1);
-            ProductItem itemToRemove = new ProductItem(itemName, 0, "");
-            RemoveCommand removeCommand = new RemoveCommand(groceryList, itemToRemove);
-            return removeCommand.execute();
-        }
-
-        if (Objects.equals(command, "list")) {
-            ListCommand listCommand = new ListCommand(groceryList);
-            return listCommand.execute();
-        }
-
-        if (Objects.equals(command, "info")) {
-            InfoCommande infoCommand = new InfoCommande();
-            return infoCommand.execute();
+                ProductItem newItem = new ProductItem(itemName, quantity, productCategory);
+                AddCommand addCommand = new AddCommand(groceryList, newItem);
+                return addCommand.execute();
+            case "remove" :
+                if (positionalArgs.size() < 2) {
+                    System.err.println("Missing arguments for remove");
+                    return 1;
+                }
+                itemName = positionalArgs.get(1);
+                ProductItem itemToRemove = new ProductItem(itemName, 0, "");
+                RemoveCommand removeCommand = new RemoveCommand(groceryList, itemToRemove);
+                return removeCommand.execute();
+            case "list" :
+                ListCommand listCommand = new ListCommand(groceryList);
+                return listCommand.execute();
+            case "info" :
+                InfoCommande infoCommande = new InfoCommande();
+                return infoCommande.execute();
         }
 
         System.err.println("Unknown command: " + command);

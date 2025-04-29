@@ -19,6 +19,10 @@ public class ListCommand implements Command{
 
     @Override
     public int execute() {
+        if (listItems.isEmpty()){
+            System.out.println("\nAucun produit dans la liste.\n");
+            return 0;
+        }
         for(ProductItem item: listItems) {
             System.out.println(item);
         }
