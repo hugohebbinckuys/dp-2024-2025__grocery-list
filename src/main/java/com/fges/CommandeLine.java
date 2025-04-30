@@ -1,5 +1,9 @@
 package com.fges;
 
+import com.fges.commands.old__AddCommand;
+import com.fges.commands.InfoCommande;
+import com.fges.commands.ListCommand;
+import com.fges.commands.RemoveCommand;
 import org.apache.commons.cli.*;
 
 import java.util.ArrayList;
@@ -74,7 +78,7 @@ public class CommandeLine {
                 String productCategory = positionalArgs.size() > 3 ? positionalArgs.get(3) : "default";
 
                 ProductItem newItem = new ProductItem(itemName, quantity, productCategory);
-                AddCommand addCommand = new AddCommand(groceryList, newItem);
+                old__AddCommand addCommand = new old__AddCommand(groceryList, newItem);
                 return addCommand.execute();
             case "remove" :
                 if (positionalArgs.size() < 2) {

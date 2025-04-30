@@ -1,4 +1,4 @@
-package com.fges;
+package com.fges.commands;
 
 import java.util.Date;
 

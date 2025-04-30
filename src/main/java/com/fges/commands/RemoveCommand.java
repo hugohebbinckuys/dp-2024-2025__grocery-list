@@ -1,4 +1,6 @@
-package com.fges;
+package com.fges.commands;
+
+import com.fges.ProductItem;
 
 import java.util.ArrayList;
 

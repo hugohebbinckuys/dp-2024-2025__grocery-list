@@ -1,9 +1,9 @@
-package com.fges;
+package com.fges.commands;
 
-import java.lang.reflect.Array;
+import com.fges.ProductItem;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ListCommand implements Command{
@@ -19,11 +19,11 @@ public class ListCommand implements Command{
         for(ProductItem item: itemList) {
             String category = item.getCategory();
             if (!category_dictionnaires.containsKey(category)) {
-                category_dictionnaires.put(category, new ArrayList<>()); // ✅ crée une nouvelle liste
+                category_dictionnaires.put(category, new ArrayList<>());
             }
-            category_dictionnaires.get(category).add(item); // ✅ ajoute l’élément à la bonne liste
+            category_dictionnaires.get(category).add(item);
         }
-        this.category_dictionnaires = category_dictionnaires; // ✅ on assigne bien à l’attribut
+        this.category_dictionnaires = category_dictionnaires;
         return 0;
     }
 
@@ -36,11 +36,11 @@ public class ListCommand implements Command{
         }
         putItemInCategory(listItems);
         for(String key: category_dictionnaires.keySet()) {
-            System.out.println("#"+key + " : " + category_dictionnaires.get(key));
+            System.out.println("\n#"+key + " : " + category_dictionnaires.get(key));
         }
+        System.out.println("\n");
         return 0;
     }
-
 
     public ArrayList<ProductItem> getListItems() {
         return listItems;
