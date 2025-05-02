@@ -29,4 +29,9 @@ public class RemoveCommand implements Command{
             return 1;
         }
     }
+
+    @Override
+    public int verifArgs() {
+        return 0;
+    }
 }

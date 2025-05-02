@@ -12,6 +12,11 @@ public class InfoCommande implements Command{
         return 0;
     }
 
+    @Override
+    public int verifArgs() {
+        return 0;
+    }
+
     public InfoCommande (){
     }
 

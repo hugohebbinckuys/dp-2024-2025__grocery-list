@@ -3,7 +3,7 @@ package com.fges;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class AddCommand implements Command{
+public class Old_AddCommand implements Command{
     private ArrayList<ProductItem> listItems;
     private ProductItem newItem;
 
@@ -31,7 +31,12 @@ public class AddCommand implements Command{
         }
     }
 
-    public AddCommand (ArrayList<ProductItem> list_items, ProductItem new_item){
+    @Override
+    public int verifArgs() {
+        return 0;
+    }
+
+    public Old_AddCommand(ArrayList<ProductItem> list_items, ProductItem new_item){
         this.listItems = list_items;
         this.newItem = new_item;
     }

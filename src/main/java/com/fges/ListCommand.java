@@ -41,6 +41,11 @@ public class ListCommand implements Command{
         return 0;
     }
 
+    @Override
+    public int verifArgs() {
+        return 0;
+    }
+
 
     public ArrayList<ProductItem> getListItems() {
         return listItems;
