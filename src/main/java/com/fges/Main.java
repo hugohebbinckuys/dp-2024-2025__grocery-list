@@ -28,11 +28,14 @@ public class Main {
         if (resultParse != 0) {
             return; // stop si parse echoue
         }
+        String command;
+        command = cmdLine.getCommande();
+//        System.out.println("Commande lancée : " + command) debug
 
         FileManagement fileManager = null;
         ArrayList<ProductItem> groceryList = new ArrayList<>();
 
-        if (!"info".equals(cmdLine.getSourceFile())) {
+        if (!command.equals("info")) {
             String fileName = cmdLine.getSourceFile();
             String fileType = cmdLine.getFileType();
             String chemin = "./";
@@ -48,6 +51,10 @@ public class Main {
         }
 
         int result = cmdLine.executeCommand(groceryList);
+
+        if (command.equals("info") || command.equals("list")){
+            return; // si on a fait la commande info ou list on a pas besoin de sauvegarder (donc pas besoin d'aller plus loin)
+        }
 
         if (result == 0 && fileManager != null) {
             try {

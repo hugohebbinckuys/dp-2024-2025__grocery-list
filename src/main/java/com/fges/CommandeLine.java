@@ -13,15 +13,9 @@ import java.util.Objects;
 public class CommandeLine {
     private String sourceFile;
     private String fileType;
+    private String commande;
     private List<String> positionalArgs;
     private CommandLine cmd;
-
-    public String getSourceFile() {
-        return sourceFile;
-    }
-    public String getFileType() {
-        return fileType;
-    }
 
     public int parseCommand(String[] args) {
         Options cliOptions = new Options();
@@ -46,10 +40,10 @@ public class CommandeLine {
             return 1;
         }
 
-        String command = positionalArgs.get(0);
+        this.commande = positionalArgs.get(0);
 
         // Gestion spéciale : pour info, le -s est pas obligatorie
-        if (!Objects.equals(command, "info") && !cmd.hasOption("s")) {
+        if (!Objects.equals(this.commande, "info") && !cmd.hasOption("s")) {
             System.err.println("Missing required option: -s");
             return 1;
         }
@@ -85,4 +79,15 @@ public class CommandeLine {
         System.err.println("Unknown command: " + command);
         return 1;
     }
+
+    public String getSourceFile() {
+        return sourceFile;
+    }
+    public String getFileType() {
+        return fileType;
+    }
+    public String getCommande() {
+        return commande;
+    }
+
 }
