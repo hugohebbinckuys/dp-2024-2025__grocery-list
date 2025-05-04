@@ -1,13 +1,15 @@
 package com.fges.feature;
 
+import com.fges.Feature;
 import com.fges.ProductItem;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class AddFeature {
+public class AddFeature implements Feature {
 
-    public int addToList (ArrayList<ProductItem> listItems, ProductItem newItem){
+@Override
+    public int execute(ArrayList<ProductItem> listItems, ProductItem newItem){
         if (!listItems.isEmpty()) {
             Optional<ProductItem> oldPotentialItem = listItems.stream()
                     .filter(item -> item.getItemName().equalsIgnoreCase(newItem.getItemName()))

@@ -1,7 +1,6 @@
 package com.fges.command;
 
 import com.fges.Command;
-import com.fges.CommandeLine;
 import com.fges.ProductItem;
 import com.fges.feature.AddFeature;
 import org.apache.commons.cli.CommandLine;
@@ -52,7 +51,7 @@ public class AddCommand implements Command {
     public int execute() {
         if (verifArgs() == 0){
             AddFeature addFeatureInstance = new AddFeature();
-            return addFeatureInstance.addToList(this.listItems, this.newItem);
+            return addFeatureInstance.execute(this.listItems, this.newItem);
         }
         else {
             return 1;

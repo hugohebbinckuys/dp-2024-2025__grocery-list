@@ -1,6 +1,7 @@
 package com.fges;
 
 import com.fges.command.AddCommand;
+import com.fges.command.RemoveCommand;
 import org.apache.commons.cli.*;
 
 import java.util.ArrayList;
@@ -66,26 +67,11 @@ public class CommandeLine {
 
         switch (command){
             case "add":
-//                if (positionalArgs.size() < 3) {
-//                    System.err.println("Missing arguments for add");
-//                    return 1;
-//                }
-//                String itemName = positionalArgs.get(1);
-//                int quantity = Integer.parseInt(positionalArgs.get(2));
-//                String productCategory = positionalArgs.size() > 3 ? positionalArgs.get(3) : "default";
-//
-//                ProductItem newItem = new ProductItem(itemName, quantity, productCategory);
                 AddCommand addCommand = new AddCommand(positionalArgs, this.cmd, groceryList);
                 return addCommand.execute();
-//            case "remove" :
-//                if (positionalArgs.size() < 2) {
-//                    System.err.println("Missing arguments for remove");
-//                    return 1;
-//                }
-//                itemName = positionalArgs.get(1);
-//                ProductItem itemToRemove = new ProductItem(itemName, 0, "");
-//                RemoveCommand removeCommand = new RemoveCommand(groceryList, itemToRemove);
-//                return removeCommand.execute();
+            case "remove" :
+                RemoveCommand removeCommand = new RemoveCommand(positionalArgs, this.cmd, groceryList);
+                return removeCommand.execute();
             case "list" :
                 ListCommand listCommand = new ListCommand(groceryList);
                 return listCommand.execute();
