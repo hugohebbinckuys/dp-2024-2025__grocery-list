@@ -18,8 +18,6 @@ public class RemoveCommand implements Command {
         this.args = args;
         this.cliOptions = cliOptions;
         this.listItems = list_items;
-//        this.itemToRemove = item_to_remove;
-
     }
 
     @Override
@@ -30,7 +28,7 @@ public class RemoveCommand implements Command {
             return 1;
         }
         itemName = args.get(1);
-        ProductItem itemToRemove = new ProductItem(itemName, 0, "");
+        this.itemToRemove = new ProductItem(itemName, 0, "");
         return 0;
     }
 
