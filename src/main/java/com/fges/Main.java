@@ -6,7 +6,6 @@ import com.fges.FileManagement.DaoInterface;
 import com.fges.FileManagement.DaoJson;
 import com.fges.FileManagement.FileManager;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -35,17 +34,23 @@ public class Main {
 
             fileManager = new FileManager(chemin, fileType, fileName);
 
-
-
-            groceryList = jsonDao.loadFile(fileManager);
+            if(fileType.equals("csv")){
+                groceryList = csvDao.loadFile(fileManager);
+            }
+            else if(fileType.equals("json")){
+                groceryList = jsonDao.loadFile(fileManager);
+            }
 
         }
 
         int result = cmdLine.executeCommand(groceryList);
-
         if(result == 0 && fileManager != null){
-
-            jsonDao.saveFile(fileManager, groceryList);
+            if(fileManager.getFileType().equals("csv")){
+                csvDao.saveFile(fileManager,groceryList);
+            }
+            else if(fileManager.getFileType().equals("json")){
+                csvDao.saveFile(fileManager,groceryList);
+            }
 
         }
 
