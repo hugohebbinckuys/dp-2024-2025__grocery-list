@@ -7,7 +7,7 @@ public class ProductItem {
     private Integer quantity;
     private String category;
 
-    public ProductItem(){} // requis par biblio Jackson
+    public ProductItem(){}
 
     // def d'un constructeur poyr que ce soit + facile à créer
     public ProductItem (String name, Integer qty, String category){
@@ -42,7 +42,7 @@ public class ProductItem {
 
     @Override
     public String toString() {
-        return "itemName" + ": " + this.itemName + " " +  this.quantity + " " + this.category;
+        return "Item (" + this.itemName + " " +  this.quantity + " " + this.category + ")";
     }
 
     // on doit surcharger la méthode equals precq pour l'instant quand on utilise "contains" dans removeItem p/ex => pour tester si des elements sont deja existants on compare le pointeur mais 2 elements "Pomme" n'ont pas le même pointeur donc on aura jamais contains == 1
