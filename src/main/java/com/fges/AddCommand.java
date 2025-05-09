@@ -7,6 +7,11 @@ public class AddCommand implements Command{
     private ArrayList<ProductItem> listItems;
     private ProductItem newItem;
 
+    public AddCommand (ArrayList<ProductItem> list_items, ProductItem new_item){
+        this.listItems = list_items;
+        this.newItem = new_item;
+    }
+
     @Override
     public int execute() {
         if (listItems != null){
@@ -27,8 +32,5 @@ public class AddCommand implements Command{
         }
     }
 
-    public AddCommand (ArrayList<ProductItem> list_items, ProductItem new_item){
-        this.listItems = list_items;
-        this.newItem = new_item;
-    }
+
 }
