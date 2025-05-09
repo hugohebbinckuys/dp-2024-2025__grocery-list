@@ -2,20 +2,31 @@ package com.fges;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ListCommand implements Command{
     private ArrayList<ProductItem> listItems;
-    private ArrayList<ArrayList<ProductItem>> CategoryList;
+    private Map<String, ArrayList<ProductItem>> category_dictionnaires;
 
     public ListCommand (ArrayList<ProductItem> groceryList){
         this.listItems = groceryList;
     }
 
-    int putItemInCategory (ArrayList itemList){
-
+    int putItemInCategory (ArrayList<ProductItem> itemList){
+        Map<String, ArrayList<ProductItem>> category_dictionnaires = new HashMap<>();
+        for(ProductItem item: itemList) {
+            String category = item.getCategory();
+            if (!category_dictionnaires.containsKey(category)) {
+                category_dictionnaires.put(category, new ArrayList<>()); // ✅ crée une nouvelle liste
+            }
+            category_dictionnaires.get(category).add(item); // ✅ ajoute l’élément à la bonne liste
+        }
+        this.category_dictionnaires = category_dictionnaires; // ✅ on assigne bien à l’attribut
         return 0;
     }
+
 
     @Override
     public int execute() {
@@ -23,9 +34,28 @@ public class ListCommand implements Command{
             System.out.println("\nAucun produit dans la liste.\n");
             return 0;
         }
-        for(ProductItem item: listItems) {
-            System.out.println(item);
+        putItemInCategory(listItems);
+        for(String key: category_dictionnaires.keySet()) {
+            System.out.println("#"+key + " : " + category_dictionnaires.get(key));
         }
         return 0;
     }
+
+
+    public ArrayList<ProductItem> getListItems() {
+        return listItems;
+    }
+
+    public void setListItems(ArrayList<ProductItem> listItems) {
+        this.listItems = listItems;
+    }
+
+    public Map<String, ArrayList<ProductItem>> getCategory_dictionnaires() {
+        return category_dictionnaires;
+    }
+
+    public void setCategory_dictionnaires(Map<String, ArrayList<ProductItem>> category_dictionnaires) {
+        this.category_dictionnaires = category_dictionnaires;
+    }
+
 }

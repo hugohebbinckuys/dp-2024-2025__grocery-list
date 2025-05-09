@@ -1,5 +1,7 @@
 package com.fges;
 
+import java.util.ArrayList;
+
 public class ProductItem {
     private String itemName;
     private Integer quantity;
