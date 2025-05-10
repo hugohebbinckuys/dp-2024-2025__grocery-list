@@ -1,13 +1,28 @@
+// hugo
+
+
 package com.fges;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fges.FileManagement.DaoCsv;
 import com.fges.FileManagement.DaoInterface;
 import com.fges.FileManagement.DaoJson;
 import com.fges.FileManagement.FileManager;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 
+import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -20,6 +35,9 @@ public class Main {
         if (resultParse != 0) {
             return; // stop si parse echoue
         }
+        String command;
+        command = cmdLine.getCommande();
+//        System.out.println("Commande lancée : " + command) debug
 
         FileManager fileManager = null;
         ArrayList<ProductItem> groceryList = new ArrayList<>();
@@ -27,12 +45,19 @@ public class Main {
         DaoInterface jsonDao = new DaoJson(); // object pour la lecture / ecriture de fichier json
         DaoInterface csvDao = new DaoCsv(); // object pour la lecture / ecriture de fichier csv
 
-        if (!"info".equals(cmdLine.getSourceFile())) {
+        if (!command.equals("info")) {
             String fileName = cmdLine.getSourceFile();
             String fileType = cmdLine.getFileType();
             String chemin = "./";
 
             fileManager = new FileManager(chemin, fileType, fileName);
+
+            // try {
+            //     groceryList = fileManager.loadItems();
+            // } catch (IOException e) {
+            //     System.out.println("Erreur lors du chargement de la liste : " + e.getMessage());
+            //     return;
+            // }
 
             if(fileType.equals("csv")){
                 groceryList = csvDao.loadFile(fileManager);
@@ -40,22 +65,21 @@ public class Main {
             else if(fileType.equals("json")){
                 groceryList = jsonDao.loadFile(fileManager);
             }
-
         }
 
         int result = cmdLine.executeCommand(groceryList);
-        if(result == 0 && fileManager != null){
+
+        if (command.equals("info") || command.equals("list")){
+            return; // si on a fait la commande info ou list on a pas besoin de sauvegarder (donc pas besoin d'aller plus loin)
+        }
+
+        if (result == 0 && fileManager != null) {
             if(fileManager.getFileType().equals("csv")){
                 csvDao.saveFile(fileManager,groceryList);
             }
             else if(fileManager.getFileType().equals("json")){
                 csvDao.saveFile(fileManager,groceryList);
             }
-
         }
-
-
-
-
     }
 }
