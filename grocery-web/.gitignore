@@ -4,14 +4,10 @@ target/
 !**/src/test/**/target/
 
 ### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
+.idea
 *.iws
 *.iml
 *.ipr
-.idea
 
 ### Eclipse ###
 .apt_generated
@@ -38,9 +34,8 @@ build/
 ### Mac OS ###
 .DS_Store
 
+# mvn settings
+settings.xml
 
-### csv / json ###
-*.csv
-*.json
-
-# grocery-web/
+# local failes
+.env.local
