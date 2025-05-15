@@ -8,10 +8,6 @@ import java.util.Date;
 
 public class InfoFeature implements Feature {
 
-    int verifArgs() {
-        return 0;
-    }
-
 @Override
     public int execute(ArrayList<ProductItem> listItems, ProductItem item) {
         Date ajd = new Date();
