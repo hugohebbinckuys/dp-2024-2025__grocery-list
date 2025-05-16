@@ -10,7 +10,7 @@ public class WebCommand implements Command {
 
     private List<String> args;
     private CommandLine cliOptions;
-    private String[] port = new String[1];
+    private String[] port;
 
     public WebCommand(List<String> args){
         this.args = args;
@@ -25,7 +25,7 @@ public class WebCommand implements Command {
         try{
             int port = Integer.parseInt(args.get(1)); // transfo en int;
             System.out.println("\nargs.get(1) : " + args.get(1) + "\n");
-//            this.port = new String[];
+            this.port = new String[1];
             this.port[0] = args.get(1); //on met les args on reste en String orcq in va passer a LainWeb qui doit avoir des Strings.
         }catch (NumberFormatException e){
             System.err.println("Erreur : l'argument fourni n'est pas un entier valide de type 0000");
