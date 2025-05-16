@@ -1,19 +1,23 @@
 package com.fges.command;
 
 import com.fges.Command;
+import com.fges.ProductItem;
 import com.fges.feature.WebFeature;
 import org.apache.commons.cli.CommandLine;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WebCommand implements Command {
 
     private List<String> args;
+    private ArrayList<ProductItem> groceryList;
     private CommandLine cliOptions;
     private String[] port;
 
-    public WebCommand(List<String> args){
+    public WebCommand(List<String> args, ArrayList<ProductItem> groceryList){
         this.args = args;
+        this.groceryList = groceryList;
     }
 
     @Override
@@ -39,7 +43,7 @@ public class WebCommand implements Command {
     public int execute() {
         if (verifArgs()==0){
             WebFeature newWebFeature = new WebFeature(this.port);
-            newWebFeature.execute(null, null);
+            newWebFeature.execute(this.groceryList, null);
         }
         return 0;
     }
