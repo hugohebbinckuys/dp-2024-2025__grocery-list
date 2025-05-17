@@ -5,24 +5,30 @@ import fr.anthonyquere.GroceryShopServer;
 import fr.anthonyquere.MyGroceryShop;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainWeb {
     private ArrayList<ProductItem> groceryList;
+    private String sourceFile;
+    private String fileType;
 
-    public MainWeb(ArrayList<ProductItem> groceryList) {
+    public MainWeb(ArrayList<ProductItem> groceryList, String sourceFile, String fileType) {
         this.groceryList = groceryList;
+        this.sourceFile = sourceFile;
+        this.fileType = fileType;
     }
 
     public MyGroceryShop add_all_items (ArrayList<ProductItem> groceryList){
-        MyGroceryShop groceryShop = new SimpleGroceryShop();
+        MyGroceryShop groceryShop = new SimpleGroceryShop(this.sourceFile, this.fileType);
         for (ProductItem product : groceryList){
             groceryShop.addGroceryItem(product.getItemName(), product.getQuantity(), product.getCategory());
         }
         return groceryShop;
     }
 
+
     public void main(String [] args) {
-        MyGroceryShop groceryShop = new SimpleGroceryShop();
+        MyGroceryShop groceryShop = new SimpleGroceryShop(this.sourceFile, this.fileType);
 
         ArrayList<ProductItem> groceryList = this.groceryList;
         groceryShop = add_all_items(groceryList);
