@@ -8,6 +8,7 @@ import java.util.List;
 public class SimpleGroceryShop implements MyGroceryShop {
     private final List<WebGroceryItem> groceries = new ArrayList<>();
 
+
     @Override
     public List<WebGroceryItem> getGroceries() {
         return new ArrayList<>(groceries);
@@ -15,6 +16,7 @@ public class SimpleGroceryShop implements MyGroceryShop {
 
     @Override
     public void addGroceryItem(String name, int quantity, String category) {
+        System.out.println();
         groceries.add(new WebGroceryItem(name, quantity, category));
     }
 
