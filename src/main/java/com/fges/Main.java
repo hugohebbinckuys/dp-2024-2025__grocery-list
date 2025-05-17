@@ -55,18 +55,18 @@ public class Main {
 
             fileManager = new FileManager(chemin, fileType, fileName);
 
-            // try {
-            //     groceryList = fileManager.loadItems();
-            // } catch (IOException e) {
-            //     System.out.println("Erreur lors du chargement de la liste : " + e.getMessage());
-            //     return;
-            // }
-
-            if(fileType.equals("csv")){
-                groceryList = csvDao.loadFile(fileManager);
-            }
-            else if(fileType.equals("json")){
-                groceryList = jsonDao.loadFile(fileManager);
+            File file = new File(fileManager.getChemin());
+            if (file.exists()) {
+                // Le fichier existe, on le charge
+                if(fileType.equals("csv")){
+                    groceryList = csvDao.loadFile(fileManager);
+                }
+                else if(fileType.equals("json")){
+                    groceryList = jsonDao.loadFile(fileManager);
+                }
+            } else {
+                // Le fichier n'existe pas, on continue avec une liste vide
+                System.out.println("Création d'un nouveau fichier : " + fileManager.getChemin());
             }
         }
 
@@ -81,7 +81,7 @@ public class Main {
                 csvDao.saveFile(fileManager,groceryList);
             }
             else if(fileManager.getFileType().equals("json")){
-                csvDao.saveFile(fileManager,groceryList);
+                jsonDao.saveFile(fileManager,groceryList);
             }
         }
     }
