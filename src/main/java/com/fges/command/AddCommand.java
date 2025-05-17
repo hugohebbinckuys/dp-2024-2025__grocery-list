@@ -35,7 +35,7 @@ public class AddCommand implements Command {
             return 1;
         }
         String category;
-        if (this.args.size()>2){
+        if (this.args.size()>3){
             category = this.args.get(3);
         }
         else {
