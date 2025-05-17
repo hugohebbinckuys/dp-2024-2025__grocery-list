@@ -83,7 +83,7 @@ public class CommandeLine {
                 InfoCommande infoCommande = new InfoCommande();
                 return infoCommande.execute();
             case "web" :
-                WebCommand webCommand = new WebCommand(this.positionalArgs, groceryList);
+                WebCommand webCommand = new WebCommand(this.positionalArgs, groceryList, this.sourceFile, this.fileType);
                 return webCommand.execute();
         }
 

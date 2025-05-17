@@ -14,10 +14,14 @@ public class WebCommand implements Command {
     private ArrayList<ProductItem> groceryList;
     private CommandLine cliOptions;
     private String[] port;
+    private String sourceFile;
+    private String fileType;
 
-    public WebCommand(List<String> args, ArrayList<ProductItem> groceryList){
+    public WebCommand(List<String> args, ArrayList<ProductItem> groceryList, String sourceFile, String fileType){
         this.args = args;
         this.groceryList = groceryList;
+        this.sourceFile = sourceFile;
+        this.fileType = fileType;
     }
 
     @Override
@@ -42,7 +46,7 @@ public class WebCommand implements Command {
     @Override
     public int execute() {
         if (verifArgs()==0){
-            WebFeature newWebFeature = new WebFeature(this.port);
+            WebFeature newWebFeature = new WebFeature(this.port, this.sourceFile, this.fileType);
             newWebFeature.execute(this.groceryList, null);
         }
         return 0;

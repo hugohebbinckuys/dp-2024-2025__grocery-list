@@ -32,6 +32,7 @@ public class DaoJson implements DaoInterface {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         objectMapper.writeValue(file.getFileObject(), groceryList);
+        System.out.println("\nbien sauvgeardé\n");
 
     }
 }
