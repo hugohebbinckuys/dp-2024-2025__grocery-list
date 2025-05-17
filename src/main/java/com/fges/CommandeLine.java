@@ -42,14 +42,6 @@ public class CommandeLine {
 
         this.commande = positionalArgs.get(0);
 
-//        if (Objects.equals(this.commande, "web") && positionalArgs.size()<2){
-//            System.err.println("Missing the port to run the web server");
-//            return 1;
-//        } else if (Objects.equals(this.commande, "web") && positionalArgs.size()>=2) {
-//            this.port = parseInt(positionalArgs.get(1));
-//        }
-
-
         // Gestion spéciale : pour info, le -s est pas obligatorie
         if (!Objects.equals(this.commande, "info") && !cmd.hasOption("s")) {
             System.err.println("Missing required option: -s");

@@ -40,7 +40,6 @@ public class Main {
         }
         String command;
         command = cmdLine.getCommande();
-//        System.out.println("Commande lancée : " + command) debug
 
         FileManager fileManager = null;
         ArrayList<ProductItem> groceryList = new ArrayList<>();

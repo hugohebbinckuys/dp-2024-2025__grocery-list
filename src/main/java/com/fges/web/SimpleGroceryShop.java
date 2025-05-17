@@ -40,12 +40,9 @@ public class SimpleGroceryShop implements MyGroceryShop {
         DaoInterface jsonDao = new DaoJson();
         DaoInterface csvDao = new DaoCsv();
         if (fileManager != null) {
-            System.out.println("\non passe par ici ou quoicoubé\nVoici le type de fichier spécifié : " + this.fileType);
 //            if(fileManager.getFileType().equals("csv")){
             if(this.fileType.equals("csv")){
-                System.out.println("on passe pas par la ? \n");
                 try {
-                    System.out.println("tentative de suavgearde");
                     csvDao.saveFile(fileManager,groceryList);
                 } catch (IOException e) {
                     throw new RuntimeException(e);

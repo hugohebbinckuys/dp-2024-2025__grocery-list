@@ -32,7 +32,6 @@ public class WebCommand implements Command {
         }
         try{
             int port = Integer.parseInt(args.get(1)); // transfo en int;
-            System.out.println("\nargs.get(1) : " + args.get(1) + "\n");
             this.port = new String[1];
             this.port[0] = args.get(1); //on met les args on reste en String orcq in va passer a LainWeb qui doit avoir des Strings.
         }catch (NumberFormatException e){

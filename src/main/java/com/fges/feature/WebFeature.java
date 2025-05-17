@@ -24,9 +24,6 @@ public class WebFeature implements Feature {
     public int execute(ArrayList<ProductItem> listItems, ProductItem item) {
         MainWeb mainWeb = new MainWeb(listItems, sourceFile, fileType);
         mainWeb.main(this.args_to_send);
-//        com.fges.web.MainWeb.main(this.args_to_send);
-//        GroceryShopServer server = new GroceryShopServer(new SimpleGroceryShop());
-//        server.start(this.port);
         return 0;
     }
 }
