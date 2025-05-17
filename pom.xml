@@ -23,6 +23,13 @@
             <version>2.18.2</version>
         </dependency>
 
+        <!-- web -->
+        <dependency>
+            <groupId>fr.anthonyquere</groupId>
+            <artifactId>grocery-web</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
         <!-- Test dependencies -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -138,7 +145,6 @@
                     </execution>
                 </executions>
             </plugin>
-
 
         </plugins>
     </build>

@@ -1,14 +1,13 @@
 package com.fges;
 
-import com.fges.command.AddCommand;
-import com.fges.command.InfoCommande;
-import com.fges.command.ListCommand;
-import com.fges.command.RemoveCommand;
+import com.fges.command.*;
 import org.apache.commons.cli.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static java.lang.Integer.parseInt;
 
 public class CommandeLine {
     private String sourceFile;
@@ -16,6 +15,7 @@ public class CommandeLine {
     private String commande;
     private List<String> positionalArgs;
     private CommandLine cmd;
+    private int port;
 
     public int parseCommand(String[] args) {
         Options cliOptions = new Options();
@@ -41,6 +41,14 @@ public class CommandeLine {
         }
 
         this.commande = positionalArgs.get(0);
+
+//        if (Objects.equals(this.commande, "web") && positionalArgs.size()<2){
+//            System.err.println("Missing the port to run the web server");
+//            return 1;
+//        } else if (Objects.equals(this.commande, "web") && positionalArgs.size()>=2) {
+//            this.port = parseInt(positionalArgs.get(1));
+//        }
+
 
         // Gestion spéciale : pour info, le -s est pas obligatorie
         if (!Objects.equals(this.commande, "info") && !cmd.hasOption("s")) {
@@ -74,6 +82,9 @@ public class CommandeLine {
             case "info" :
                 InfoCommande infoCommande = new InfoCommande();
                 return infoCommande.execute();
+            case "web" :
+                WebCommand webCommand = new WebCommand(this.positionalArgs, groceryList);
+                return webCommand.execute();
         }
 
         System.err.println("Unknown command: " + command);
