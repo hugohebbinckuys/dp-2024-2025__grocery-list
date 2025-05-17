@@ -12,8 +12,8 @@
 
 ## Quel design pattern avez-vous utilisés et pourquoi ?
 
-- **design pattern (Command Pattern)** : chaque commande (`AddCommand`, `RemoveCommand`, etc.) implémente l’interface `Command`. Cela permet d’ajouter facilement de nouvelles commandes.
-- **design pattern (DAO)** —  permet de séparer la logique d’accès aux données (csv,json) de la logique métier , afin de faciliter la maintenance, les tests, et l’évolution du code
+- **Command Pattern** : chaque commande (`AddCommand`, `RemoveCommand`, etc.) implémente l’interface `Command`. Cela permet d’ajouter facilement de nouvelles commandes.
+- **DAO** —  permet de séparer la logique d’accès aux données (csv,json) de la logique métier , afin de faciliter la maintenance, les tests, et l’évolution du code
 
 ---
 
